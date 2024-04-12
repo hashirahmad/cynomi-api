@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword       # Use a secure password
+      MYSQL_DATABASE: mydb                    # Your database name, if you want to create one
+    ports:
+      - "3307:3306"                           # Map port 3307 on the host to port 3306 in the container
+    volumes:
+      - mysql-data:/var/lib/mysql             # Persist database between container restarts
+      - ./mydb:/docker-entrypoint-initdb.d # Mount your SQL scripts
+
+volumes:
+  mysql-data:                          # Named volume for MySQL data
